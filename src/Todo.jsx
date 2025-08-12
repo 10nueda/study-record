@@ -1,44 +1,40 @@
 import { useEffect, useState } from "react";
-import { addTodo, deleteTodo, GetAllTodos } from "./lib/todo";
+import { addTodo, deleteTodo, getAllTodos } from "./lib/todo";
 
 export const Todo = () => {
   const [contents, setContents] = useState("");
   const [time, setTime] = useState("");
-
-  // const [records, setRecords] = useState([]);
-  // const newRecord = { title: contents, time: time };
-
   const [error, setError] = useState("");
   const [sumTime, setSumTime] = useState(0);
-
-  // useState内のstate
   const [todosData, setTodosData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // 合計時間を算出する関数
-  const addTime = (record) => {
-    return record.reduce((acc, cur) => acc + parseInt(cur.time), 0);
+  const updateTime = (todos) => {
+    return todos.reduce((acc, cur) => acc + parseInt(cur.time), 0);
   };
 
+  // 初回読み込み時に行う処理
   useEffect(() => {
-    const getAllTodos = async () => {
+    const fetchData = async () => {
       try {
         setIsLoading(true);
-        const todosData = await GetAllTodos();
-        setTodosData(todosData);
-        setSumTime(addTime(todosData));
+        const fetchTodos = await getAllTodos();
+        setTodosData(fetchTodos);
+        setSumTime(updateTime(fetchTodos));
+        setTime("0");
       } catch (error) {
         console.error("読込エラーです", error);
       } finally {
         setIsLoading(false);
       }
     }
-    getAllTodos();
+    fetchData();
   }, []);
 
-  // onChangeイベント
-  const onChangeContents = (event) => setContents(event.target.value);
-  const onChangeTime = (event) => setTime(event.target.value);
+  // 学習内容・時間の入力内容を反映するonChange
+  const onChangeContents = (e) => setContents(e.target.value);
+  const onChangeTime = (e) => setTime(e.target.value);
 
   // データ追加イベント
   const onClickAdd = async () => {
@@ -49,10 +45,9 @@ export const Todo = () => {
       await addTodo(contents, time);
       setContents("");
       setTime("0");
-
-      const updatedTodos = await GetAllTodos();
+      const updatedTodos = await getAllTodos();
       setTodosData(updatedTodos);
-      setSumTime(addTime(updatedTodos));
+      setSumTime(updateTime(updatedTodos));
     } catch (err) {
       setError("登録に失敗しました");
       console.error(err);
@@ -62,9 +57,9 @@ export const Todo = () => {
   // データ削除イベント
   const onClickDelete = async (id) => {
     await deleteTodo(id);
-    const updatedTodos = await GetAllTodos();
+    const updatedTodos = await getAllTodos();
     setTodosData(updatedTodos);
-    setSumTime(addTime(updatedTodos));
+    setSumTime(updateTime(updatedTodos));
   }
 
   // 画面描写
@@ -89,20 +84,15 @@ export const Todo = () => {
           <span>入力されている時間：{time}</span>
         </div>
         <div>
-          {todosData.map((todo, index) => {
+          {todosData.map((todo) => {
             return (
-              <div key={index}>
-                <p>
-                  {todo.contents}
-                  {todo.time}時間
-                  <button onClick={() => onClickDelete(todo.id)}>削除</button>
-                </p>
-              </div>
+              <ul key={todo.id} style={{ padding: 0 }}>
+                <li>{todo.contents}{todo.time}時間<button onClick={() => onClickDelete(todo.id)}>削除</button></li>
+              </ul>
             );
           })}
         </div>
         <button onClick={onClickAdd}>登録</button>
-        <span> </span>
         <p>合計時間：{sumTime}/1000h</p>
         <div>{error}</div>
       </div>

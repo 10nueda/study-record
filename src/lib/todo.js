@@ -1,6 +1,6 @@
 import { supabase } from "../utils/supabase";
 
-export async function GetAllTodos() {
+export const getAllTodos = async () => {
     const response = await supabase.from("study-record").select("*");
     if (response.error) {
         throw new Error(response.error.message);
@@ -8,8 +8,8 @@ export async function GetAllTodos() {
     return response.data;
 }
 
-export const addTodo = async (title, time) => {
-    await supabase.from("study-record").insert({ contents: title, time: time })
+export const addTodo = async (contents, time) => {
+    await supabase.from("study-record").insert({ contents: contents, time: time })
 }
 
 export const deleteTodo = async (id) => {
