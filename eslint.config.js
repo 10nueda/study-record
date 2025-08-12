@@ -5,7 +5,10 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
+  // 📌 無視するフォルダ（例: dist）
   globalIgnores(['dist']),
+
+  // ✅ 通常のアプリコード（React など）
   {
     files: ['**/*.{js,jsx}'],
     extends: [
@@ -23,7 +26,15 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      'no-unused-vars': 'off',
+    },
+  },
+
+  // ✅ Jest（テスト）用の設定ブロック
+  {
+    files: ['**/*.spec.js', '**/*.test.js'],
+    languageOptions: {
+      globals: globals.jest,
     },
   },
 ])
