@@ -32,7 +32,7 @@ export default defineConfig([
 
   // ✅ Jest（テスト）用の設定ブロック
   {
-    files: ['**/*.spec.js', '**/*.test.js'],
+    files: ['**/*.spec.js','**/*.spec.jsx', '**/*.test.js'],
     languageOptions: {
       globals: globals.jest,
     },

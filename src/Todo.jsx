@@ -68,14 +68,14 @@ export const Todo = () => {
   ) : (
     <>
       <div>
-        <h1>学習記録一覧テスト</h1>
+        <h1 data-testid="title">学習記録一覧テスト版</h1>
         <div>
           <span>学習内容</span>
-          <input type="text" value={contents} onChange={onChangeContents} />
+          <input data-testid="content-input" type="text" value={contents} onChange={onChangeContents} />
         </div>
         <div>
           <span>学習時間</span>
-          <input type="number" value={time} onChange={onChangeTime} />
+          <input data-testid="time-input" type="number" value={time} onChange={onChangeTime} />
         </div>
         <div>
           <span>入力されている学習内容：{contents}</span>
@@ -87,12 +87,12 @@ export const Todo = () => {
           {todosData.map((todo) => {
             return (
               <ul key={todo.id} style={{ padding: 0 }}>
-                <li>{todo.contents}{todo.time}時間<button onClick={() => onClickDelete(todo.id)}>削除</button></li>
+                <li data-testid="record-item">{todo.contents}{todo.time}時間<button onClick={() => onClickDelete(todo.id)}>削除</button></li>
               </ul>
             );
           })}
         </div>
-        <button onClick={onClickAdd}>登録</button>
+        <button data-testid="add-button" onClick={onClickAdd}>登録</button>
         <p>合計時間：{sumTime}/1000h</p>
         <div>{error}</div>
       </div>
