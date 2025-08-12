@@ -68,7 +68,7 @@ export const Todo = () => {
   ) : (
     <>
       <div>
-        <h1>学習記録一覧</h1>
+        <h1>学習記録一覧テスト</h1>
         <div>
           <span>学習内容</span>
           <input type="text" value={contents} onChange={onChangeContents} />
