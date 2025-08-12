@@ -8,4 +8,7 @@ export default defineConfig({
     react(),
     env({ prefix: "VITE", mountedPath: "process.env" })
   ],
+  build: {
+    outDir: "dist"
+  }
 });
