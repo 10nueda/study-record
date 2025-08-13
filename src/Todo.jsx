@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { addTodo, deleteTodo, getAllTodos } from "./lib/todo";
+import { addTodo, deleteTodo, getAllTodos } from "./lib/todo.js";
 
 export const Todo = () => {
   const [contents, setContents] = useState("");
