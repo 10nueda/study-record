@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { addTodo, deleteTodo, getAllTodos } from "./lib/todo.js";
 
-export const Todo = () => {
+export const Todo = ({ initialData = [] }) => {
   const [contents, setContents] = useState("");
   const [time, setTime] = useState("");
   const [error, setError] = useState("");
   const [sumTime, setSumTime] = useState(0);
-  const [todosData, setTodosData] = useState([]);
+  const [todosData, setTodosData] = useState(initialData);
   const [isLoading, setIsLoading] = useState(true);
 
   // 合計時間を算出する関数

@@ -5,7 +5,7 @@ import { render, screen, waitFor, fireEvent, waitForElementToBeRemoved } from "@
 
 describe("Title Test", () => {
     it("タイトルが学習記録一覧テスト版であること", async () => {
-        render(<Todo />);
+        render(<Todo initialData={[]}/>);
         console.log("render完了");
         const title = await screen.findByTestId("title");
         console.log("title取得:", title.textContent);
@@ -17,7 +17,7 @@ describe("Title Test", () => {
 describe("Todo 登録テスト", () => {
     it("学習内容と時間を入力して登録すると1件追加される", async () => {
 
-        render(<Todo />);
+        render(<Todo initialData={[]}/>);
         console.log("render完了");
 
         // 初期のリスト数を取得
@@ -50,7 +50,7 @@ describe("Todo 登録テスト", () => {
 describe("Todo 削除テスト", () => {
     it("削除ボタンを押すと1件削除される", async () => {
 
-        render(<Todo />);
+        render(<Todo initialData={[]}/>);
         console.log("render完了");
 
         // 初期のリスト数を取得
@@ -74,7 +74,7 @@ describe("Todo 削除テスト", () => {
 
 describe("Todo 未入力フィールドテスト", () => {
     it("入力せずに登録するとエラーメッセージが表示され、リスト数は変わらない", async () => {
-        render(<Todo />);
+        render(<Todo initialData={[]}/>);
         console.log("render完了");
 
         // 「Loading...」が消えるのを待つ（データ取得系処理がある場合）
