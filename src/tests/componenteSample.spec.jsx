@@ -71,3 +71,28 @@ describe("Todo 削除テスト", () => {
         });
     });
 });
+
+describe("Todo 未入力フィールドテスト", () => {
+    it("入力せずに登録するとエラーメッセージが表示され、リスト数は変わらない", async () => {
+        render(<Todo />);
+        console.log("render完了");
+
+        // 「Loading...」が消えるのを待つ（データ取得系処理がある場合）
+        await waitForElementToBeRemoved(() => screen.getByText("Loading..."));
+
+        // 初期のリスト数を取得
+        const initialRecords = (await screen.findAllByTestId("record-item")).length;
+
+        // 登録ボタンを取得してクリック（入力は空のまま）
+        const addButton = await screen.findByRole("button", { name: "登録" });
+        fireEvent.click(addButton);
+
+        // エラーメッセージが表示されていることを確認
+        expect(await screen.findByText("入力されていない項目があります")).toBeInTheDocument();
+
+        // リスト数が変わっていないことを確認
+        const currentRecords = (await screen.findAllByTestId("record-item")).length;
+        expect(currentRecords).toBe(initialRecords);
+    });
+
+});
