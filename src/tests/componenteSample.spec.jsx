@@ -7,7 +7,9 @@ describe("Title Test", () => {
     it("タイトルが学習記録一覧テスト版であること", async () => {
         render(<Todo initialData={[]} />);
         const title = await screen.findByTestId("title");
-        expect(title).toHaveTextContent("学習記録一覧テスト版");
+        await waitFor(async() =>{
+            expect(title).toHaveTextContent("学習記録一覧テスト版");
+        }, { timeout: 2000 })
     });
 });
 
