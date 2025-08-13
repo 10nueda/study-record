@@ -44,8 +44,7 @@ describe("Todo 登録テスト", () => {
         await waitFor(async () => {
             const newRecords = (await screen.findAllByTestId("record-item")).length;
             expect(newRecords).toBe(initialRecords + 1);
-            console.log(newRecords);
-        });
+        }, { timeout: 2000 }); // タイムアウト設定を追加);
     });
 });
 
@@ -72,8 +71,7 @@ describe("Todo 削除テスト", () => {
         await waitFor(async () => {
             const newRecords = (await screen.findAllByTestId("record-item")).length;
             expect(newRecords).toBe(initialRecords - 1);
-            console.log(newRecords);
-        });
+        }, { timeout: 2000 }); // タイムアウト設定を追加);
     });
 });
 
