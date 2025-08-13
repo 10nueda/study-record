@@ -5,11 +5,8 @@ import { render, screen, waitFor, fireEvent, waitForElementToBeRemoved } from "@
 
 describe("Title Test", () => {
     it("タイトルが学習記録一覧テスト版であること", async () => {
-        render(<Todo initialData={[]}/>);
-        console.log("render完了");
+        render(<Todo initialData={[]} />);
         const title = await screen.findByTestId("title");
-        console.log("title取得:", title.textContent);
-        screen.debug(title);
         expect(title).toHaveTextContent("学習記録一覧テスト版");
     });
 });
@@ -18,14 +15,12 @@ describe("Todo 登録テスト", () => {
     it("学習内容と時間を入力して登録すると1件追加される", async () => {
 
         render(<Todo initialData={[
-      { id: 1, content: "既存の学習", time: 1 },
-    ]} />);
-        console.log("render完了");
+            { id: 1, content: "既存の学習", time: 1 },
+        ]} />);
 
         // 初期のリスト数を取得
         await waitForElementToBeRemoved(() => screen.getByText("Loading..."));
         const initialRecords = (await screen.findAllByTestId("record-item")).length;
-        console.log(initialRecords);
 
         screen.debug();
         // フォーム入力 & 登録ボタンをクリック
@@ -52,17 +47,14 @@ describe("Todo 削除テスト", () => {
     it("削除ボタンを押すと1件削除される", async () => {
 
         render(<Todo initialData={[
-      { id: 1, content: "React Testing", time: 2 },
-      { id: 2, content: "Unit Test", time: 3 },
-    ]} />);
-        console.log("render完了");
+            { id: 1, content: "React Testing", time: 2 },
+            { id: 2, content: "Unit Test", time: 3 },
+        ]} />);
 
         // 初期のリスト数を取得
         await waitForElementToBeRemoved(() => screen.getByText("Loading..."));
         const initialRecords = (await screen.findAllByTestId("record-item")).length;
-        console.log(initialRecords);
 
-        screen.debug();
         // 削除ボタンをクリック
         const deleteButton = screen.getAllByRole('button', { name: '削除' })[0];
         fireEvent.click(deleteButton);
@@ -77,8 +69,7 @@ describe("Todo 削除テスト", () => {
 
 describe("Todo 未入力フィールドテスト", () => {
     it("入力せずに登録するとエラーメッセージが表示され、リスト数は変わらない", async () => {
-        render(<Todo initialData={[]}/>);
-        console.log("render完了");
+        render(<Todo initialData={[]} />);
 
         // 「Loading...」が消えるのを待つ（データ取得系処理がある場合）
         await waitForElementToBeRemoved(() => screen.getByText("Loading..."));
