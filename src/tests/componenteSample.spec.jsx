@@ -17,7 +17,9 @@ describe("Title Test", () => {
 describe("Todo 登録テスト", () => {
     it("学習内容と時間を入力して登録すると1件追加される", async () => {
 
-        render(<Todo initialData={[]}/>);
+        render(<Todo initialData={[
+      { id: 1, content: "既存の学習", time: 1 },
+    ]} />);
         console.log("render完了");
 
         // 初期のリスト数を取得
@@ -41,7 +43,7 @@ describe("Todo 登録テスト", () => {
         // 追加後のリスト数をチェック
         await waitFor(async () => {
             const newRecords = (await screen.findAllByTestId("record-item")).length;
-            expect(newRecords).toBeGreaterThan(initialRecords);
+            expect(newRecords).toBe(initialRecords + 1);
             console.log(newRecords);
         });
     });
@@ -50,7 +52,10 @@ describe("Todo 登録テスト", () => {
 describe("Todo 削除テスト", () => {
     it("削除ボタンを押すと1件削除される", async () => {
 
-        render(<Todo initialData={[]}/>);
+        render(<Todo initialData={[
+      { id: 1, content: "React Testing", time: 2 },
+      { id: 2, content: "Unit Test", time: 3 },
+    ]} />);
         console.log("render完了");
 
         // 初期のリスト数を取得
@@ -66,7 +71,7 @@ describe("Todo 削除テスト", () => {
         // 削除後のリスト数をチェック
         await waitFor(async () => {
             const newRecords = (await screen.findAllByTestId("record-item")).length;
-            expect(newRecords).toBeLessThan(initialRecords);
+            expect(newRecords).toBe(initialRecords - 1);
             console.log(newRecords);
         });
     });
