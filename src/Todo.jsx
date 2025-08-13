@@ -71,11 +71,11 @@ export const Todo = () => {
         <h1 data-testid="title">学習記録一覧テスト版</h1>
         <div>
           <span>学習内容</span>
-          <input data-testid="content-input" type="text" value={contents} onChange={onChangeContents} />
+          <input placeholder="テキストを入力" type="text" value={contents} onChange={onChangeContents} />
         </div>
         <div>
           <span>学習時間</span>
-          <input data-testid="time-input" type="number" value={time} onChange={onChangeTime} />
+          <input placeholder="0" type="number" value={time} onChange={onChangeTime} />
         </div>
         <div>
           <span>入力されている学習内容：{contents}</span>
@@ -86,9 +86,11 @@ export const Todo = () => {
         <div>
           {todosData.map((todo) => {
             return (
-              <ul key={todo.id} style={{ padding: 0 }}>
-                <li data-testid="record-item">{todo.contents}{todo.time}時間<button onClick={() => onClickDelete(todo.id)}>削除</button></li>
-              </ul>
+              <li data-testid="record-item" key={todo.id}>
+                <span>{todo.contents}</span>
+                <span>{todo.time}時間</span>
+                <button onClick={() => onClickDelete(todo.id)}>削除</button>
+              </li>
             );
           })}
         </div>
