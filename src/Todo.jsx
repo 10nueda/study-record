@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { addTodo, deleteTodo, getAllTodos } from "./lib/todo.js";
 
 export const Todo = ({ initialData = [] }) => {
+  console.log(initialData);
   const [contents, setContents] = useState("");
   const [time, setTime] = useState("");
   const [error, setError] = useState("");
